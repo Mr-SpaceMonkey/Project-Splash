@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -6,9 +6,11 @@ public class PlayerMovement : MonoBehaviour {
 
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
+	public float boosttime = 5f;
+	public bool isboosting = false;
 
     const float eps = 0.0001f;
-    const float minR = 15;
+    const float minR = 10f;
 
     public Transform nose;
     public Transform tail;
@@ -35,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
         rotY = Input.GetAxis("Horizontal");
         if (isGrounded)
         {
-            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+            rb.constraints = RigidbodyConstraints.None;
             anim.SetFloat("Direction", rotY);
             if (Mathf.Abs(rotY) > eps)
             {
@@ -52,6 +54,16 @@ public class PlayerMovement : MonoBehaviour {
             {
                 rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             }
+			if (Input.GetButtonDown("Boost"))
+			{
+				boosttime = boosttime-Time.deltaTime;
+				movementSpeed = 50f;
+			}
+			if (boosttime <= 0)
+			{
+				boosttime = 5f;
+				movementSpeed = 10f;
+			}
         }
         else // Will handle everthing while in the air
         {
@@ -80,5 +92,6 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 rotPoint = new Vector3(radius, 0, 0);
         float angle = speed * Time.deltaTime / radius * 180 / Mathf.PI;
         transform.RotateAround(transform.TransformPoint(rotPoint), Vector3.up, angle);
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
     }
 }
