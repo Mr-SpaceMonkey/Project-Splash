@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
     public float jumpHeight = 100f;
 
     const float eps = 0.0001f;
-    const float minR = 10f;
+    const float minR = 15;
 
     public Transform nose;
     public Transform tail;
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
         rotY = Input.GetAxis("Horizontal");
         if (isGrounded)
         {
-            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
             anim.SetFloat("Direction", rotY);
             if (Mathf.Abs(rotY) > eps)
             {
@@ -80,6 +80,5 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 rotPoint = new Vector3(radius, 0, 0);
         float angle = speed * Time.deltaTime / radius * 180 / Mathf.PI;
         transform.RotateAround(transform.TransformPoint(rotPoint), Vector3.up, angle);
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
     }
 }
