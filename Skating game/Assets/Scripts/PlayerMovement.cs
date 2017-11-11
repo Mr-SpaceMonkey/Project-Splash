@@ -71,8 +71,8 @@ public class PlayerMovement : MonoBehaviour {
             if(flipDir != 0)
             {
                 //transform.rotation = Quaternion.Lerp(transform.rotation, rotateTo, Time.deltaTime * rotationSmoothness);
-                //transform.Rotate(new Vector3(0, 0, 10 * flipDir));
-                transform.RotateAround(transform.position, Vector3.forward, flipDir*rotationSpeed);
+                transform.Rotate(new Vector3(0, 0, 10 * flipDir));
+                //transform.RotateAround(transform.position, Vector3.forward, flipDir*rotationSpeed);
             }
         }
         if (Input.GetKeyDown(KeyCode.Return))
