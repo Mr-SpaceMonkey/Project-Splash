@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour {
 
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
-    float rotY = 0;
 
     const float eps = 0.0001f;
     const float minR = 10f;
@@ -19,11 +18,6 @@ public class PlayerMovement : MonoBehaviour {
 
     bool isGrounded;
 
-    public float rotationSpeed;
-    public float rotationFriction;
-    public float rotationSmoothness;
-
-    private Quaternion rotateTo;
 
     Rigidbody rb;
     Animator anim;
@@ -38,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update ()
     {
         isGrounded = Physics.Linecast(transform.position, groundCheck.position, whatIsGround);
-        rotY = Input.GetAxis("Horizontal");
+        float rotY = Input.GetAxis("Horizontal");
         if (isGrounded)
         {
             rb.constraints = RigidbodyConstraints.None;
@@ -61,8 +55,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else // Will handle everthing while in the air
         {
-            float flipDir = Input.GetAxis("Flipping"); //* rotationSpeed * rotationFriction;
-            rotateTo = Quaternion.Euler(0, 0, flipDir);
+            float flipDir = Input.GetAxis("Flipping");
             rb.constraints = RigidbodyConstraints.None;
             if(rotY != 0)
             {
@@ -70,9 +63,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             if(flipDir != 0)
             {
-                //transform.rotation = Quaternion.Lerp(transform.rotation, rotateTo, Time.deltaTime * rotationSmoothness);
                 transform.Rotate(new Vector3(0, 0, 10 * flipDir));
-                //transform.RotateAround(transform.position, Vector3.forward, flipDir*rotationSpeed);
             }
         }
         if (Input.GetKeyDown(KeyCode.Return))
