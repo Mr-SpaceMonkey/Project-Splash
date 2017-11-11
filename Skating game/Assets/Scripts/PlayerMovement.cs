@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
         rotY = Input.GetAxis("Horizontal");
         if (isGrounded)
         {
-            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
             anim.SetFloat("Direction", rotY);
             if (Mathf.Abs(rotY) > eps)
             {
@@ -52,16 +52,6 @@ public class PlayerMovement : MonoBehaviour {
             {
                 rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             }
-			if (Input.GetButtonDown("Boost"))
-			{
-				boosttime = boosttime-Time.deltaTime;
-				movementSpeed = 50f;
-			}
-			if (boosttime <= 0)
-			{
-				boosttime = 5f;
-				movementSpeed = 10f;
-			}
         }
         else // Will handle everthing while in the air
         {
