@@ -6,11 +6,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
-	public float boosttime = 5f;
-	public bool isboosting = false;
 
     const float eps = 0.0001f;
-    const float minR = 10f;
+    const float minR = 15;
 
     public Transform nose;
     public Transform tail;
@@ -92,6 +90,5 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 rotPoint = new Vector3(radius, 0, 0);
         float angle = speed * Time.deltaTime / radius * 180 / Mathf.PI;
         transform.RotateAround(transform.TransformPoint(rotPoint), Vector3.up, angle);
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
     }
 }
