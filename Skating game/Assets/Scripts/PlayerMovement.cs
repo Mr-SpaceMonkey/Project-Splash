@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask whatIsGround;
 
     bool isGrounded;
-
+    private float rotY;
 
     Rigidbody rb;
     Animator anim;
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update ()
     {
         isGrounded = Physics.Linecast(transform.position, groundCheck.position, whatIsGround);
-        float rotY = Input.GetAxis("Horizontal");
+        rotY = Input.GetAxis("Horizontal");
         if (isGrounded)
         {
             rb.constraints = RigidbodyConstraints.None;
