@@ -22,7 +22,8 @@ public class PlayerMotor : MonoBehaviour {
 
     Animator anim;
     Rigidbody rb;
-    bool isGrounded;
+    [HideInInspector]
+    public bool isGrounded;
 
     void Start()
     {
@@ -38,13 +39,14 @@ public class PlayerMotor : MonoBehaviour {
         float motor = Input.GetAxis("Fire1") * motorForce;
         float turn = Input.GetAxis("Horizontal") * steerForce;
         float impossible = Input.GetAxis("Vertical");
-        anim.SetFloat("Direction", turn);        backLeft.motorTorque = motor;
+        anim.SetFloat("Direction", turn);
 
         if (isGrounded)
         {
             backRight.motorTorque = motor;
             frontLeft.motorTorque = motor;
             frontRight.motorTorque = motor;
+            backLeft.motorTorque = motor;
             frontLeft.steerAngle = turn;
             frontRight.steerAngle = turn;
             if (Input.GetButtonDown("Jump"))

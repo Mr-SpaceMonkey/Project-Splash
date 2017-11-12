@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public LayerMask whatIsGround;
 
-    bool isGrounded;
+    [HideInInspector]
+    public static bool isGrounded;
     private float rotY;
 
     Rigidbody rb;
