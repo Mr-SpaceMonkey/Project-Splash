@@ -707,7 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 472886301}
   m_Layer: 0
-  m_Name: GroundCheck (1)
+  m_Name: NearGroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -846,14 +846,14 @@ MonoBehaviour:
   steerForce: 15
   jumpHeight: 80
   shuvitSpeed: 0.5
-  flipSpeed: 10
-  impossibleSpeed: 8
+  flipSpeed: 5
+  impossibleSpeed: 4
   groundCheck: {fileID: 16961408}
+  nearGroundCheck: {fileID: 472886301}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0
-  isManual: 0
 --- !u!1 &1200605524
 GameObject:
   m_ObjectHideFlags: 0
