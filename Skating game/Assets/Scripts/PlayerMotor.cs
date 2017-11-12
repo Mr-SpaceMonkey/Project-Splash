@@ -22,8 +22,10 @@ public class PlayerMotor : MonoBehaviour {
 
     Animator anim;
     Rigidbody rb;
+
     [HideInInspector]
     public bool isGrounded;
+	public bool isManual;
 
     void Start()
     {
@@ -41,7 +43,7 @@ public class PlayerMotor : MonoBehaviour {
         float impossible = Input.GetAxis("Vertical");
         anim.SetFloat("Direction", turn);
 
-        if (isGrounded)
+        if (isGrounded || isManual)
         {
             backRight.motorTorque = motor;
             frontLeft.motorTorque = motor;
@@ -69,5 +71,13 @@ public class PlayerMotor : MonoBehaviour {
                 transform.Rotate(impossible * impossibleSpeed, 0, 0);
             }
         }
+		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 50f && Input.GetButton ("Manual")) {
+			rb.constraints = RigidbodyConstraints.FreezeRotation;
+			isManual= true;
+			Physics.IgnoreLayerCollision (8, 9);
+		} else {
+			rb.constraints = RigidbodyConstraints.None;
+			isManual = false;
+		}
 	}
 }
