@@ -72,15 +72,22 @@ public class PlayerMotor : MonoBehaviour {
             }
         }
 		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 50f && Input.GetButton ("Manual")) {
-			rb.constraints = RigidbodyConstraints.FreezeRotation;
+			rb.constraints = RigidbodyConstraints.FreezeRotationX;
 			isManual= true;
 			Physics.IgnoreLayerCollision (8, 9);
-		} else {
+		}
+        else if (rb.transform.rotation.eulerAngles.x <= -5f && rb.transform.rotation.eulerAngles.x >= -50f && Input.GetButton("Manual"))
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            isManual = true;
+            Physics.IgnoreLayerCollision(8, 9);
+        }
+        else {
 			rb.constraints = RigidbodyConstraints.None;
 			isManual = false;
 		}
-		if (Input.GetButtonUp ("Manual")) {
-			rb.AddForce (Vector3.up * jumpHeight * 1.25f, ForceMode.Impulse);
+		if (isManual && Input.GetButtonUp ("Manual")) { 
+			rb.AddForce (Vector3.up * jumpHeight, ForceMode.Impulse);
 		}
 	}
 }
