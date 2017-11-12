@@ -79,5 +79,8 @@ public class PlayerMotor : MonoBehaviour {
 			rb.constraints = RigidbodyConstraints.None;
 			isManual = false;
 		}
+		if (Input.GetButtonUp ("Manual")) {
+			rb.AddForce (Vector3.up * jumpHeight * 1.25f, ForceMode.Impulse);
+		}
 	}
 }
