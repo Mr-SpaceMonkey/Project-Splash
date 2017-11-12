@@ -769,7 +769,6 @@ GameObject:
   m_Component:
   - component: {fileID: 896141804}
   - component: {fileID: 896141805}
-  - component: {fileID: 896141806}
   - component: {fileID: 896141807}
   - component: {fileID: 896141808}
   - component: {fileID: 896141809}
@@ -810,7 +809,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 896141803}
   serializedVersion: 2
-  m_Mass: 1000
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -818,26 +817,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &896141806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 896141803}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6f3ab4aa34bd743a5f4b8eccf724c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 15
-  jumpHeight: 40
-  nose: {fileID: 1800267798}
-  tail: {fileID: 443816187}
-  groundCheck: {fileID: 1865044245}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  gm: {fileID: 47013040}
 --- !u!95 &896141807
 Animator:
   serializedVersion: 3
@@ -870,8 +849,16 @@ MonoBehaviour:
   frontRight: {fileID: 584970689}
   backLeft: {fileID: 709578904}
   backRight: {fileID: 207830717}
-  motorForce: 500
-  steerForce: 20
+  motorForce: 60
+  steerForce: 15
+  jumpHeight: 80
+  shuvitSpeed: 0.5
+  flipSpeed: 10
+  impossibleSpeed: 5
+  groundCheck: {fileID: 1865044245}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &896141809
 MonoBehaviour:
   m_ObjectHideFlags: 0
