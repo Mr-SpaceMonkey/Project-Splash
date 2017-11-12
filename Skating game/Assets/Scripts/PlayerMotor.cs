@@ -64,7 +64,7 @@ public class PlayerMotor : MonoBehaviour {
             {
                 transform.Rotate(0, 0, flipSpeed * flip);
             }
-            if (impossible != 0)
+			if (impossible != 0 && Input.GetButton("Fire1"))
             {
                 transform.Rotate(impossible * impossibleSpeed, 0, 0);
             }
