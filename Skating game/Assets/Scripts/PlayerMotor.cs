@@ -20,6 +20,7 @@ public class PlayerMotor : MonoBehaviour {
     public Transform groundCheck;
     public Transform nearGroundCheck;
     public LayerMask whatIsGround;
+	public Vector3 temppos;
 
     Animator anim;
     Rigidbody rb;
@@ -67,15 +68,16 @@ public class PlayerMotor : MonoBehaviour {
             }
             if(flip != 0)
             {
-				transform.Rotate(0, 0, flipSpeed *2f * flip);
+				transform.Rotate(0, 0, flipSpeed * flip);
             }
 			if (impossible != 0)
             {
-                transform.Rotate(impossible * impossibleSpeed *2f, 0, 0);
+                transform.Rotate(impossible * impossibleSpeed, 0, 0);
             }
         }
-		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButton("Manual")) {
+		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButton("Manual") && isNearGround) {
 			rb.constraints = RigidbodyConstraints.FreezeRotation;
+			rb.constraints = RigidbodyConstraints.FreezePositionY;
 			isManual= true;
 			Physics.IgnoreLayerCollision (8, 9);
 		}
@@ -88,9 +90,15 @@ public class PlayerMotor : MonoBehaviour {
         else {
 			rb.constraints = RigidbodyConstraints.None;
 			if (isManual && Input.GetButtonUp ("Manual")) { 
-				rb.AddForce (Vector3.up * jumpHeight, ForceMode.Impulse);
+				rb.AddForce (Vector3.up * jumpHeight * 1.5f, ForceMode.Impulse);
 			}
 			isManual = false;
+		}
+		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButtonDown("Manual") && isNearGround)
+		{
+			temppos = rb.transform.position;
+			temppos.y = temppos.y - 0.6f;
+			rb.transform.position = temppos;
 		}
 	}
 }
