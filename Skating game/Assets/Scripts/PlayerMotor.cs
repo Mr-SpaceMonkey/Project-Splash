@@ -18,6 +18,7 @@ public class PlayerMotor : MonoBehaviour {
 
     [Header("")]
     public Transform groundCheck;
+    public Transform nearGroundCheck;
     public LayerMask whatIsGround;
 
     Animator anim;
@@ -25,7 +26,8 @@ public class PlayerMotor : MonoBehaviour {
 
     [HideInInspector]
     public bool isGrounded;
-	public bool isManual;
+	bool isManual;
+    bool isNearGround;
 
     void Start()
     {
@@ -37,6 +39,7 @@ public class PlayerMotor : MonoBehaviour {
     void Update ()
     {
         isGrounded = Physics.Linecast(transform.position, groundCheck.position, whatIsGround);
+        isNearGround = Physics.Linecast(transform.position,nearGroundCheck.position,whatIsGround);
         float flip = Input.GetAxis("Flipping");
         float motor = Input.GetAxis("Fire1") * motorForce;
         float turn = Input.GetAxis("Horizontal") * steerForce;
@@ -89,6 +92,5 @@ public class PlayerMotor : MonoBehaviour {
 			}
 			isManual = false;
 		}
-
 	}
 }
