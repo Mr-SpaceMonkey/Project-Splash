@@ -74,14 +74,14 @@ public class PlayerMotor : MonoBehaviour {
                 transform.Rotate(impossible * impossibleSpeed *2f, 0, 0);
             }
         }
-		if (rb.transform.rotation.eulerAngles.x >= 10f && rb.transform.rotation.eulerAngles.x <= 25f && Input.GetButton ("Manual")) {
-			rb.constraints = RigidbodyConstraints.FreezeRotationX;
+		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButton("Manual")) {
+			rb.constraints = RigidbodyConstraints.FreezeRotation;
 			isManual= true;
 			Physics.IgnoreLayerCollision (8, 9);
 		}
-        else if (rb.transform.rotation.eulerAngles.x <= 10f && rb.transform.rotation.eulerAngles.x >= -25f && Input.GetButton("Manual"))
+        else if (rb.transform.rotation.eulerAngles.x <= -5f && rb.transform.rotation.eulerAngles.x >= -30f && Input.GetButton("Manual"))
         {
-            rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
             isManual = true;
             Physics.IgnoreLayerCollision(8, 9);
         }
