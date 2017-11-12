@@ -24,7 +24,7 @@ public class CameraFollow : MonoBehaviour {
         }
         else
         {
-            targetPosition = target.position + Vector3.up * distanceUp - (Nose.position.normalized - Tail.position.normalized) * distanceAway;
+            targetPosition = target.position + Vector3.up * distanceUp/1.5f - (Nose.position.normalized - Tail.position.normalized) * distanceAway *2f;
             transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * smoothSpeed);
             transform.LookAt(target);
         }

@@ -51,7 +51,7 @@ public class PlayerMotor : MonoBehaviour {
             frontRight.steerAngle = turn;
             if (Input.GetButtonDown("Jump"))
             {
-                rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * jumpHeight * 1.25f, ForceMode.Impulse);
             }
         }
         else
