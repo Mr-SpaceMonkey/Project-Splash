@@ -43,7 +43,7 @@ public class PlayerMotor : MonoBehaviour {
         float impossible = Input.GetAxis("Vertical");
         anim.SetFloat("Direction", turn);
 
-        if (isGrounded || isManual)
+		if (isGrounded)
         {
             backRight.motorTorque = motor;
             frontLeft.motorTorque = motor;
@@ -64,19 +64,19 @@ public class PlayerMotor : MonoBehaviour {
             }
             if(flip != 0)
             {
-                transform.Rotate(0, 0, flipSpeed * flip);
+				transform.Rotate(0, 0, flipSpeed *2f * flip);
             }
 			if (impossible != 0)
             {
-                transform.Rotate(impossible * impossibleSpeed, 0, 0);
+                transform.Rotate(impossible * impossibleSpeed *2f, 0, 0);
             }
         }
-		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 50f && Input.GetButton ("Manual")) {
+		if (rb.transform.rotation.eulerAngles.x >= 10f && rb.transform.rotation.eulerAngles.x <= 25f && Input.GetButton ("Manual")) {
 			rb.constraints = RigidbodyConstraints.FreezeRotationX;
 			isManual= true;
 			Physics.IgnoreLayerCollision (8, 9);
 		}
-        else if (rb.transform.rotation.eulerAngles.x <= -5f && rb.transform.rotation.eulerAngles.x >= -50f && Input.GetButton("Manual"))
+        else if (rb.transform.rotation.eulerAngles.x <= 10f && rb.transform.rotation.eulerAngles.x >= -25f && Input.GetButton("Manual"))
         {
             rb.constraints = RigidbodyConstraints.FreezeRotationX;
             isManual = true;
@@ -84,10 +84,11 @@ public class PlayerMotor : MonoBehaviour {
         }
         else {
 			rb.constraints = RigidbodyConstraints.None;
+			if (isManual && Input.GetButtonUp ("Manual")) { 
+				rb.AddForce (Vector3.up * jumpHeight, ForceMode.Impulse);
+			}
 			isManual = false;
 		}
-		if (isManual && Input.GetButtonUp ("Manual")) { 
-			rb.AddForce (Vector3.up * jumpHeight, ForceMode.Impulse);
-		}
+
 	}
 }
