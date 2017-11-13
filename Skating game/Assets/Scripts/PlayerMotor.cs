@@ -15,12 +15,13 @@ public class PlayerMotor : MonoBehaviour {
     public float shuvitSpeed;
     public float flipSpeed;
     public float impossibleSpeed;
+    public float grindSnapRange;
 
     [Header("")]
     public Transform groundCheck;
     public Transform nearGroundCheck;
     public LayerMask whatIsGround;
-	public Vector3 temppos;
+	public Vector3 tempPos;
 
     Animator anim;
     Rigidbody rb;
@@ -29,6 +30,7 @@ public class PlayerMotor : MonoBehaviour {
     [HideInInspector]
     public bool isGrounded;
     bool isNearGround;
+    [HideInInspector]
 	public bool isManual;
 
     void Start()
@@ -98,18 +100,24 @@ public class PlayerMotor : MonoBehaviour {
 		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButtonDown("Manual") && isNearGround)
 		{
 			tm.LandManual ();
-			temppos = rb.transform.position;
-			temppos.y = temppos.y - 0.6f;
-			rb.transform.position = temppos;
+			tempPos = rb.transform.position;
+			tempPos.y = tempPos.y - 0.6f;
+			rb.transform.position = tempPos;
 		}
 		else if (rb.transform.rotation.eulerAngles.x <= 350f && rb.transform.rotation.eulerAngles.x >= 335f && Input.GetButtonDown("Manual") && isNearGround == true)
 		{
 			if (isNearGround == true) {
 				rb.constraints = RigidbodyConstraints.FreezePositionY;
-				temppos = rb.transform.position;
-				temppos.y = temppos.y - 0.6f;
-				rb.transform.position = temppos;
+				tempPos = rb.transform.position;
+				tempPos.y = tempPos.y - 0.6f;
+				rb.transform.position = tempPos;
 			}
 		}
 	}
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, grindSnapRange);
+    }
 }

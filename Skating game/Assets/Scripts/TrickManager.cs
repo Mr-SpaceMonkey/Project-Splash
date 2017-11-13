@@ -2,14 +2,11 @@
 using UnityEngine.UI;
 
 public class TrickManager : MonoBehaviour {
-<<<<<<< HEAD
 
-    PlayerMotor pm;
-=======
 	PlayerMotor pm;
 	ScoreManager sc;
->>>>>>> 562d997785a4044f18f66306e824cec08b92a67e
-	public float manuscore;
+
+    public float manualScore;
 
 	// Use this for initialization
 	void Start ()
@@ -21,7 +18,7 @@ public class TrickManager : MonoBehaviour {
 	void Update ()
     {
 		if (pm.isManual) {
-			manuscore = manuscore + Time.deltaTime;
+			manualScore = manualScore + Time.deltaTime;
 		}
 	}
 	public void LandManual()
