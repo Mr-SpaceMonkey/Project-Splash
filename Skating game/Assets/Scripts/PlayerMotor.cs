@@ -27,8 +27,8 @@ public class PlayerMotor : MonoBehaviour {
 
     [HideInInspector]
     public bool isGrounded;
-	bool isManual;
     bool isNearGround;
+	public bool isManual;
 
     void Start()
     {
@@ -81,7 +81,7 @@ public class PlayerMotor : MonoBehaviour {
 			isManual= true;
 			Physics.IgnoreLayerCollision (8, 9);
 		}
-        else if (rb.transform.rotation.eulerAngles.x <= -5f && rb.transform.rotation.eulerAngles.x >= -30f && Input.GetButton("Manual"))
+        else if (rb.transform.rotation.eulerAngles.x <= 348f && rb.transform.rotation.eulerAngles.x >= 337f && Input.GetButton("Manual"))
         {
             rb.constraints = RigidbodyConstraints.FreezeRotation;
             isManual = true;
@@ -99,6 +99,15 @@ public class PlayerMotor : MonoBehaviour {
 			temppos = rb.transform.position;
 			temppos.y = temppos.y - 0.6f;
 			rb.transform.position = temppos;
+		}
+		else if (rb.transform.rotation.eulerAngles.x <= 350f && rb.transform.rotation.eulerAngles.x >= 335f && Input.GetButtonDown("Manual") && isNearGround == true)
+		{
+			if (isNearGround == true) {
+				rb.constraints = RigidbodyConstraints.FreezePositionY;
+				temppos = rb.transform.position;
+				temppos.y = temppos.y - 0.6f;
+				rb.transform.position = temppos;
+			}
 		}
 	}
 }

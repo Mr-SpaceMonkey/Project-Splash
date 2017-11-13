@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class TrickManager : MonoBehaviour {
+	PlayerMotor pm;
+	public float manuscore;
 
 	// Use this for initialization
 	void Start ()
@@ -11,9 +13,8 @@ public class TrickManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if(transform.rotation.z > 10)
-        {
-            Debug.Log("We did a flip");
-        }
+		if (pm.isManual) {
+			manuscore = manuscore + Time.deltaTime;
+		}
 	}
 }
