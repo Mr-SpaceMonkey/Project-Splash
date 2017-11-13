@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TrickManager : MonoBehaviour {
 	PlayerMotor pm;
+	ScoreManager sc;
 	public float manuscore;
 
 	// Use this for initialization
@@ -16,5 +18,9 @@ public class TrickManager : MonoBehaviour {
 		if (pm.isManual) {
 			manuscore = manuscore + Time.deltaTime;
 		}
+	}
+	public void LandManual()
+	{
+		sc.AddScore (100f);
 	}
 }

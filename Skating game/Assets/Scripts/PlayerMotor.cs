@@ -24,6 +24,7 @@ public class PlayerMotor : MonoBehaviour {
 
     Animator anim;
     Rigidbody rb;
+	TrickManager tm;
 
     [HideInInspector]
     public bool isGrounded;
@@ -96,6 +97,7 @@ public class PlayerMotor : MonoBehaviour {
 		}
 		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButtonDown("Manual") && isNearGround)
 		{
+			tm.LandManual ();
 			temppos = rb.transform.position;
 			temppos.y = temppos.y - 0.6f;
 			rb.transform.position = temppos;
