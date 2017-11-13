@@ -21,7 +21,8 @@ public class PlayerMotor : MonoBehaviour {
     public Transform groundCheck;
     public Transform nearGroundCheck;
     public LayerMask whatIsGround;
-	public Vector3 tempPos;
+	Vector3 tempPos;
+    public string railTag = "Rail";
 
     Animator anim;
     Rigidbody rb;
@@ -32,6 +33,7 @@ public class PlayerMotor : MonoBehaviour {
     bool isNearGround;
     [HideInInspector]
 	public bool isManual;
+
 
     void Start()
     {
@@ -99,7 +101,7 @@ public class PlayerMotor : MonoBehaviour {
 		}
 		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButtonDown("Manual") && isNearGround)
 		{
-			tm.LandManual ();
+			//tm.LandManual ();
 			tempPos = rb.transform.position;
 			tempPos.y = tempPos.y - 0.6f;
 			rb.transform.position = tempPos;
@@ -115,9 +117,4 @@ public class PlayerMotor : MonoBehaviour {
 		}
 	}
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, grindSnapRange);
-    }
 }
