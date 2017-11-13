@@ -15,14 +15,12 @@ public class PlayerMotor : MonoBehaviour {
     public float shuvitSpeed;
     public float flipSpeed;
     public float impossibleSpeed;
-    public float grindSnapRange;
 
     [Header("")]
     public Transform groundCheck;
     public Transform nearGroundCheck;
     public LayerMask whatIsGround;
 	Vector3 tempPos;
-    public string railTag = "Rail";
 
     Animator anim;
     Rigidbody rb;
@@ -30,10 +28,10 @@ public class PlayerMotor : MonoBehaviour {
 
     [HideInInspector]
     public bool isGrounded;
-    bool isNearGround;
     [HideInInspector]
 	public bool isManual;
-
+    bool isNearGround;
+    public bool isGrinding;
 
     void Start()
     {
@@ -46,13 +44,33 @@ public class PlayerMotor : MonoBehaviour {
     {
         isGrounded = Physics.Linecast(transform.position, groundCheck.position, whatIsGround);
         isNearGround = Physics.Linecast(transform.position,nearGroundCheck.position,whatIsGround);
+        float impossible = Input.GetAxis("Vertical");
         float flip = Input.GetAxis("Flipping");
         float motor = Input.GetAxis("Fire1") * motorForce;
         float turn = Input.GetAxis("Horizontal") * steerForce;
-        float impossible = Input.GetAxis("Vertical");
         anim.SetFloat("Direction", turn);
 
-		if (isGrounded)
+        if (isGrinding)
+        {
+            Debug.Log("grinding");
+            rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            rb.constraints = RigidbodyConstraints.FreezeRotationY;
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        }
+        else
+        {
+            //rb.constraints = RigidbodyConstraints.None;
+        }
+
+        if (isGrounded)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            }
+        }
+
+		if (isGrounded || isNearGround)
         {
             backRight.motorTorque = motor;
             frontLeft.motorTorque = motor;
@@ -60,14 +78,13 @@ public class PlayerMotor : MonoBehaviour {
             backLeft.motorTorque = motor;
             frontLeft.steerAngle = turn;
             frontRight.steerAngle = turn;
-            if (Input.GetButtonDown("Jump"))
-            {
-                rb.AddForce(Vector3.up * jumpHeight * 1.25f, ForceMode.Impulse);
-            }
+            backLeft.steerAngle = -turn;
+            backRight.steerAngle = -turn;
+
         }
-        else
+        if(isNearGround == false && isGrounded == false)
         {
-            if(turn != 0)
+            if (turn != 0)
             {
                 transform.Rotate(0,shuvitSpeed*turn,0);
             }
@@ -80,41 +97,47 @@ public class PlayerMotor : MonoBehaviour {
                 transform.Rotate(impossible * impossibleSpeed, 0, 0);
             }
         }
-		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButton("Manual") && isNearGround) {
-			rb.constraints = RigidbodyConstraints.FreezeRotation;
-			rb.constraints = RigidbodyConstraints.FreezePositionY;
-			isManual= true;
-			Physics.IgnoreLayerCollision (8, 9);
-		}
-        else if (rb.transform.rotation.eulerAngles.x <= 348f && rb.transform.rotation.eulerAngles.x >= 337f && Input.GetButton("Manual"))
+        if (isNearGround)
         {
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-            isManual = true;
-            Physics.IgnoreLayerCollision(8, 9);
+            if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButton("Manual"))
+            {
+                rb.constraints = RigidbodyConstraints.FreezeRotationX;
+                Physics.IgnoreLayerCollision(8, 9);
+                Debug.Log("Nose Manual");
+                isManual = true;
+            }
+            else if (rb.transform.rotation.eulerAngles.x <= 348f && rb.transform.rotation.eulerAngles.x >= 337f && Input.GetButton("Manual"))
+            {
+                rb.constraints = RigidbodyConstraints.FreezeRotationX;
+                isManual = true;
+                Physics.IgnoreLayerCollision(8, 9);
+                Debug.Log("Manual");
+            }
+            else
+            {
+                rb.constraints = RigidbodyConstraints.None;
+                if (isManual && Input.GetButtonUp("Manual"))
+                {
+                    rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+                }
+                isManual = false;
+            }
         }
-        else {
-			rb.constraints = RigidbodyConstraints.None;
-			if (isManual && Input.GetButtonUp ("Manual")) { 
-				rb.AddForce (Vector3.up * jumpHeight * 1.5f, ForceMode.Impulse);
-			}
-			isManual = false;
-		}
-		if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButtonDown("Manual") && isNearGround)
-		{
-			//tm.LandManual ();
-			tempPos = rb.transform.position;
-			tempPos.y = tempPos.y - 0.6f;
-			rb.transform.position = tempPos;
-		}
-		else if (rb.transform.rotation.eulerAngles.x <= 350f && rb.transform.rotation.eulerAngles.x >= 335f && Input.GetButtonDown("Manual") && isNearGround == true)
-		{
-			if (isNearGround == true) {
-				rb.constraints = RigidbodyConstraints.FreezePositionY;
-				tempPos = rb.transform.position;
-				tempPos.y = tempPos.y - 0.6f;
-				rb.transform.position = tempPos;
-			}
-		}
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Rail")
+        {
+            isGrinding = true;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "Rail")
+        {
+            isGrinding = false;
+        }
+    }
 
 }

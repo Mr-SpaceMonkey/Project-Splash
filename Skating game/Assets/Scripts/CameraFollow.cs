@@ -11,7 +11,6 @@ public class CameraFollow : MonoBehaviour {
     public float smoothSpeed;
     public float distanceAway;
     public float distanceUp;
-    public Vector3 offset;
     Vector3 targetPosition;
 
     void FixedUpdate()
@@ -24,7 +23,8 @@ public class CameraFollow : MonoBehaviour {
         }
         else
         {
-            targetPosition = target.position + Vector3.up * distanceUp/1.5f - (Nose.position.normalized - Tail.position.normalized) * distanceAway *2f;
+            targetPosition = target.position + Vector3.up * distanceUp / 1.5f - (Nose.position.normalized - Tail.position.normalized) * distanceAway * 2f;
+            //targetPosition = target.position + Vector3.up * distanceUp - (Nose.position-Tail.position).normalized * distanceAway;
             transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * smoothSpeed);
             transform.LookAt(target);
         }
