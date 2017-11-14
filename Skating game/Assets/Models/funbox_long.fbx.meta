@@ -1,33 +1,16 @@
 fileFormatVersion: 2
-guid: c0008d5f17c6fbb4a9ec25378683baf2
-timeCreated: 1510693072
+guid: 24831498c0b82df4ca222fd78dde95bd
+timeCreated: 1510674794
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Camera
-    100002: Cube
-    100004: Deck
-    100006: //RootNode
-    400000: Camera
-    400002: Cube
-    400004: Deck
-    400006: //RootNode
-    2000000: Camera
-    2300000: Cube
-    2300002: Deck
-    2300004: //RootNode
-    3300000: Cube
-    3300002: Deck
-    3300004: //RootNode
-    4300000: Deck
-    4300002: Cube
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Plane.002
   externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 83389654065b2db4c9eaaaf1941de88c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
