@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 331762386}
   - component: {fileID: 331762385}
   m_Layer: 0
-  m_Name: Rail
+  m_Name: Rail2
   m_TagString: Rail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -962,6 +962,7 @@ GameObject:
   - component: {fileID: 1200605526}
   - component: {fileID: 1200605525}
   - component: {fileID: 1200605530}
+  - component: {fileID: 1200605531}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1057,6 +1058,18 @@ MonoBehaviour:
   smoothSpeed: 5
   distanceAway: 8
   distanceUp: 5
+--- !u!114 &1200605531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1200605524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 9cb9e36e39591f24b9eb83546bf8041c, type: 2}
 --- !u!1001 &1288649026
 Prefab:
   m_ObjectHideFlags: 0
