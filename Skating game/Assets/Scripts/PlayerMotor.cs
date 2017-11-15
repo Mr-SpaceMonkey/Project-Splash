@@ -90,6 +90,7 @@ public class PlayerMotor : MonoBehaviour {
             if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButton("Manual"))
             {
                 rb.constraints = RigidbodyConstraints.FreezeRotationX;
+				rb.constraints = RigidbodyConstraints.FreezePositionY;
                 Physics.IgnoreLayerCollision(8, 9);
                 Debug.Log("Nose Manual");
                 isManual = true;
@@ -97,6 +98,7 @@ public class PlayerMotor : MonoBehaviour {
             else if (rb.transform.rotation.eulerAngles.x <= 348f && rb.transform.rotation.eulerAngles.x >= 337f && Input.GetButton("Manual"))
             {
                 rb.constraints = RigidbodyConstraints.FreezeRotationX;
+				rb.constraints = RigidbodyConstraints.FreezePositionY;
                 isManual = true;
                 Physics.IgnoreLayerCollision(8, 9);
                 Debug.Log("Manual");
