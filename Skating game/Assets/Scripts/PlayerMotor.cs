@@ -50,19 +50,7 @@ public class PlayerMotor : MonoBehaviour {
         float turn = Input.GetAxis("Horizontal") * steerForce;
         anim.SetFloat("Direction", turn);
 
-        if (isGrinding)
-        {
-            Debug.Log("grinding");
-            rb.constraints = RigidbodyConstraints.FreezeRotationX;
-            rb.constraints = RigidbodyConstraints.FreezeRotationY;
-            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-        }
-        else
-        {
-            //rb.constraints = RigidbodyConstraints.None;
-        }
-
-        if (isGrounded)
+        if (isGrounded || isGrinding)
         {
             if (Input.GetButtonDown("Jump"))
             {
@@ -70,7 +58,7 @@ public class PlayerMotor : MonoBehaviour {
             }
         }
 
-		if (isGrounded || isNearGround)
+		if (isGrounded)
         {
             backRight.motorTorque = motor;
             frontLeft.motorTorque = motor;
@@ -82,7 +70,7 @@ public class PlayerMotor : MonoBehaviour {
             backRight.steerAngle = -turn;
 
         }
-        if(isNearGround == false && isGrounded == false)
+        else
         {
             if (turn != 0)
             {
@@ -124,6 +112,21 @@ public class PlayerMotor : MonoBehaviour {
             }
         }
 	}
+
+    private void FixedUpdate()
+    {
+        if (isGrinding)
+        {
+            Debug.Log("grinding");
+            rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            rb.constraints = RigidbodyConstraints.FreezeRotationY;
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        }
+        else
+        {
+            rb.constraints = RigidbodyConstraints.None;
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
