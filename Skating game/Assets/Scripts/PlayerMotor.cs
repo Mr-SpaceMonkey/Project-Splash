@@ -25,6 +25,7 @@ public class PlayerMotor : MonoBehaviour {
     public Transform nearGroundCheck;
     public LayerMask whatIsGround;
 	Vector3 tempPos;
+	Vector3 tempVelocity;
 
     Animator anim;
     Rigidbody rb;
@@ -104,6 +105,18 @@ public class PlayerMotor : MonoBehaviour {
                 rb.centerOfMass = cOMNoseManual;
                 Physics.IgnoreLayerCollision(8, 9);
                 Debug.Log("Nose Manual, angle is "+rb.transform.eulerAngles.x);
+				Debug.Log("Velocity is "+rb.velocity);
+				tempVelocity = rb.velocity;
+				if (tempVelocity.x > 0f) {
+					tempVelocity.x = tempVelocity.x - 0.05f * Time.deltaTime;
+				}
+				if (tempVelocity.y > 0f) {
+					tempVelocity.y = tempVelocity.y - 0.05f * Time.deltaTime;
+				}
+				if (tempVelocity.z > 0f) {
+					tempVelocity.z = tempVelocity.z - 0.05f * Time.deltaTime;
+				}
+				rb.velocity = tempVelocity;
                 isManual = true;
             }
             else if (rb.transform.eulerAngles.x <= 355f && rb.transform.eulerAngles.x >= 345f && Input.GetButton("Manual"))
