@@ -15,6 +15,10 @@ public class PlayerMotor : MonoBehaviour {
     public float shuvitSpeed;
     public float flipSpeed;
     public float impossibleSpeed;
+    public Vector3 cOM;
+    public Vector3 cOMManual;
+    public Vector3 cOMNoseManual;
+
 
     [Header("")]
     public Transform groundCheck;
@@ -37,6 +41,7 @@ public class PlayerMotor : MonoBehaviour {
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = cOM;
     }
 
     // Update is called once per frame
@@ -58,7 +63,7 @@ public class PlayerMotor : MonoBehaviour {
             }
         }
 
-		if (isGrounded)
+		if (isGrounded || isManual)
         {
             backRight.motorTorque = motor;
             frontLeft.motorTorque = motor;
@@ -68,8 +73,18 @@ public class PlayerMotor : MonoBehaviour {
             frontRight.steerAngle = turn;
             backLeft.steerAngle = -turn;
             backRight.steerAngle = -turn;
-
         }
+        /*if (isManual)
+        {
+            backRight.motorTorque = motor*2;
+            frontLeft.motorTorque = motor*2;
+            frontRight.motorTorque = motor*2;
+            backLeft.motorTorque = motor*2;
+            frontLeft.steerAngle = turn;
+            frontRight.steerAngle = turn;
+            backLeft.steerAngle = -turn;
+            backRight.steerAngle = -turn;
+        }*/
         else
         {
             if (turn != 0)
@@ -87,24 +102,25 @@ public class PlayerMotor : MonoBehaviour {
         }
         if (isNearGround)
         {
-            if (rb.transform.rotation.eulerAngles.x >= 5f && rb.transform.rotation.eulerAngles.x <= 30f && Input.GetButton("Manual"))
+            if (rb.transform.eulerAngles.x >= 5f && rb.transform.eulerAngles.x <= 25f && Input.GetButton("Manual"))
             {
                 rb.constraints = RigidbodyConstraints.FreezeRotationX;
-				rb.constraints = RigidbodyConstraints.FreezePositionY;
+                rb.centerOfMass = cOMNoseManual;
                 Physics.IgnoreLayerCollision(8, 9);
-                Debug.Log("Nose Manual");
+                Debug.Log("Nose Manual, angle is "+rb.transform.eulerAngles.x);
                 isManual = true;
             }
-            else if (rb.transform.rotation.eulerAngles.x <= 348f && rb.transform.rotation.eulerAngles.x >= 337f && Input.GetButton("Manual"))
+            else if (rb.transform.eulerAngles.x <= 348f && rb.transform.eulerAngles.x >= 337f && Input.GetButton("Manual"))
             {
                 rb.constraints = RigidbodyConstraints.FreezeRotationX;
-				rb.constraints = RigidbodyConstraints.FreezePositionY;
-                isManual = true;
+                rb.centerOfMass = cOMManual;
                 Physics.IgnoreLayerCollision(8, 9);
+                isManual = true;
                 Debug.Log("Manual");
             }
             else
             {
+                rb.centerOfMass = cOM;
                 rb.constraints = RigidbodyConstraints.None;
                 if (isManual && Input.GetButtonUp("Manual"))
                 {
@@ -115,7 +131,7 @@ public class PlayerMotor : MonoBehaviour {
         }
 	}
 
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         if (isGrinding)
         {
@@ -128,7 +144,7 @@ public class PlayerMotor : MonoBehaviour {
         {
             rb.constraints = RigidbodyConstraints.None;
         }
-    }
+    }*/
 
     private void OnCollisionEnter(Collision collision)
     {
