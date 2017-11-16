@@ -35,6 +35,7 @@ public class PlayerMotor : MonoBehaviour {
     [HideInInspector]
 	public bool isManual;
     bool isNearGround;
+    [HideInInspector]
     public bool isGrinding;
 
     void Start()
@@ -74,17 +75,6 @@ public class PlayerMotor : MonoBehaviour {
             backLeft.steerAngle = -turn;
             backRight.steerAngle = -turn;
         }
-        /*if (isManual)
-        {
-            backRight.motorTorque = motor*2;
-            frontLeft.motorTorque = motor*2;
-            frontRight.motorTorque = motor*2;
-            backLeft.motorTorque = motor*2;
-            frontLeft.steerAngle = turn;
-            frontRight.steerAngle = turn;
-            backLeft.steerAngle = -turn;
-            backRight.steerAngle = -turn;
-        }*/
         else
         {
             if (turn != 0)
@@ -100,6 +90,12 @@ public class PlayerMotor : MonoBehaviour {
                 transform.Rotate(impossible * impossibleSpeed, 0, 0);
             }
         }
+        if (isGrinding)
+        {
+            Debug.Log("Grinding");
+            rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        }
         if (isNearGround)
         {
             if (rb.transform.eulerAngles.x >= 5f && rb.transform.eulerAngles.x <= 25f && Input.GetButton("Manual"))
@@ -110,7 +106,7 @@ public class PlayerMotor : MonoBehaviour {
                 Debug.Log("Nose Manual, angle is "+rb.transform.eulerAngles.x);
                 isManual = true;
             }
-            else if (rb.transform.eulerAngles.x <= 348f && rb.transform.eulerAngles.x >= 337f && Input.GetButton("Manual"))
+            else if (rb.transform.eulerAngles.x <= 355f && rb.transform.eulerAngles.x >= 345f && Input.GetButton("Manual"))
             {
                 rb.constraints = RigidbodyConstraints.FreezeRotationX;
                 rb.centerOfMass = cOMManual;

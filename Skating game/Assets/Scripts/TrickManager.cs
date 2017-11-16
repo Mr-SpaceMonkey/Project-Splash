@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TrickManager : MonoBehaviour {
 
 	PlayerMotor pm;
-	ScoreManager sc;
+    public TextMeshProUGUI comboScoreText;
 
-    public float manualScore;
+    public float manualScorePerSec;
+    public float grindScorePerSec;
+    float comboScore;
 
 	// Use this for initialization
 	void Start ()
@@ -17,12 +20,23 @@ public class TrickManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (pm.isGrinding)
+        {
+            comboScore = comboScore + grindScorePerSec * Time.deltaTime;
+            comboScoreText.SetText("Combo Score: " + Mathf.Round(comboScore));
+        }
 		if (pm.isManual) {
-			manualScore = manualScore + Time.deltaTime;
+			comboScore = comboScore + manualScorePerSec * Time.deltaTime;
+            comboScoreText.SetText("Combo Score: " + Mathf.Round(comboScore));
 		}
+        if (pm.isGrounded)
+        {
+            LandCombo(comboScore);
+        }
 	}
-	public void LandManual()
+	void LandCombo(float combo_Score)
 	{
-		sc.AddScore (100f);
+        comboScore = 0;
+        comboScoreText.SetText("Combo Score: 0");
 	}
 }
