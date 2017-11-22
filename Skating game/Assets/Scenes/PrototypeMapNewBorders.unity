@@ -366,15 +366,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4487161072340694, guid: bda0de70b16408f42a5b4230b749dc22, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.69
       objectReference: {fileID: 0}
     - target: {fileID: 4487161072340694, guid: bda0de70b16408f42a5b4230b749dc22, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 15
+      value: 10.04
       objectReference: {fileID: 0}
     - target: {fileID: 4487161072340694, guid: bda0de70b16408f42a5b4230b749dc22, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -87.8976
+      value: -116.39
       objectReference: {fileID: 0}
     - target: {fileID: 4487161072340694, guid: bda0de70b16408f42a5b4230b749dc22, type: 2}
       propertyPath: m_LocalRotation.x
@@ -646,6 +646,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8160e4c2ee396374d8a8fc16b7afbb5c, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8160e4c2ee396374d8a8fc16b7afbb5c, type: 3}
   m_IsPrefabParent: 0
@@ -658,15 +662,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4467954687733982, guid: 993dc57a9c18caa4ab126c9dceb1d626, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.69
       objectReference: {fileID: 0}
     - target: {fileID: 4467954687733982, guid: 993dc57a9c18caa4ab126c9dceb1d626, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.3999996
+      value: 0.43999958
       objectReference: {fileID: 0}
     - target: {fileID: 4467954687733982, guid: 993dc57a9c18caa4ab126c9dceb1d626, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -80
+      value: -108.4924
       objectReference: {fileID: 0}
     - target: {fileID: 4467954687733982, guid: 993dc57a9c18caa4ab126c9dceb1d626, type: 2}
       propertyPath: m_LocalRotation.x
